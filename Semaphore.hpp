@@ -8,7 +8,7 @@
 
 #include <ti/sysbios/knl/Semaphore.h>
 #include <ti/sysbios/BIOS.h>
-#include "../tirtos/ErrorBlock.hpp"
+#include "ErrorBlock.hpp"
 
 
 

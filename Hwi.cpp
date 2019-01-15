@@ -2,7 +2,7 @@
  * \file Hwi.cpp
  * \brief Обёртка над HWI - объектом ОС
  */
-#include <tirtos/Hwi.hpp>
+#include "Hwi.hpp"
 
 
 namespace tirtos{

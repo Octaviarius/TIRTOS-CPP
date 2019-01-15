@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <ti/sysbios/knl/Event.h>
 #include <ti/sysbios/BIOS.h>
-#include "../tirtos/ErrorBlock.hpp"
+#include "ErrorBlock.hpp"
 
 
 

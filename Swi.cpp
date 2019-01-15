@@ -3,7 +3,7 @@
  * \brief Обёртка над Swi-потоком - объектом ОС
  */
 
-#include <tirtos/Swi.hpp>
+#include "Swi.hpp"
 
 
 

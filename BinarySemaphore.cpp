@@ -4,7 +4,7 @@
  *
  */
 
-#include <tirtos/BinarySemaphore.hpp>
+#include "BinarySemaphore.hpp"
 
 
 namespace tirtos{

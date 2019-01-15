@@ -4,7 +4,7 @@
 #include <ti/sysbios/BIOS.h>
 #include <ti/sysbios/heaps/HeapMem.h>
 
-#include "../tirtos/ErrorBlock.hpp"
+#include "ErrorBlock.hpp"
 
 
 

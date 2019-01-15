@@ -5,7 +5,7 @@
 #pragma once
 
 #include <ti/sysbios/knl/Task.h>
-#include "../tirtos/ErrorBlock.hpp"
+#include "ErrorBlock.hpp"
 #include "os_types.h"
 
 

@@ -5,8 +5,8 @@
 #pragma once
 
 
-#include <tirtos/Atomic.h>
-#include <tirtos/Hwi.hpp>
+#include "Atomic.h"
+#include "Hwi.hpp"
 
 
 namespace tirtos{

@@ -2,7 +2,7 @@
  * \file Thread.cpp
  * \brief Обёртка над Task-потоком - объектом ОС
  */
-#include <tirtos/Thread.hpp>
+#include "Thread.hpp"
 
 
 extern const UInt Task_numPriorities;

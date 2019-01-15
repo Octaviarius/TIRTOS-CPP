@@ -3,7 +3,7 @@
  * \brief Реализация класса-обёртки над структурой, в которую помещается код и расшифровка ошибки SYS/BIOS .
  */
 
-#include <tirtos/ErrorBlock.hpp>
+#include "ErrorBlock.hpp"
 
 namespace tirtos{
 

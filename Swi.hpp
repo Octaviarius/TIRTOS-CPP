@@ -6,7 +6,7 @@
 
 #include <ti/sysbios/knl/Swi.h>
 
-#include "../tirtos/ErrorBlock.hpp"
+#include "ErrorBlock.hpp"
 #include "os_types.h"
 
 

@@ -2,7 +2,7 @@
  * \file Semaphore.cpp
  * \brief Обёртка над Semaphore - объектом ОС
  */
-#include <tirtos/Semaphore.hpp>
+#include "Semaphore.hpp"
 
 
 namespace tirtos{
