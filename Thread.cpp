@@ -13,14 +13,9 @@ extern const UInt Task_numPriorities;
 namespace tirtos{
 
 
-
-
-
+TIRTOS_OBJECT_CONSTRUCT(CThread)
 
 UInt CThread::key = 0;
-size_t CThread::obj_counter = 0;
-CErrorBlock CThread::eblock = CErrorBlock();
-
 
 
 
@@ -31,7 +26,7 @@ Void CThread::handler(UArg a0, UArg a1){
 
 
 
-CThread::CThread(TCallbackFunctor method, void *arg, int priority, long stacksize, CErrorBlock *eb){
+CThread::CThread(TCallbackFunctor method, void *arg, int priority, long stacksize){
 	Task_Params_init(&params);
 	call_context.arg = arg;
 	call_context.result = 0;
@@ -44,16 +39,15 @@ CThread::CThread(TCallbackFunctor method, void *arg, int priority, long stacksiz
 	params.arg1 = (UArg)&call_context.meth;
 
 	this->sender = NULL;
-	this->eb = (eb == NULL) ? &eblock : eb;
-	handle = Task_create(&handler, &params, &this->eb->Handle());
-	this->eb->print();
-	obj_counter++;
+	handle = Task_create(&handler, &params, &errorBlock()->Handle());
+	_inc_object();
+
 }
 
 
 CThread::~CThread(){
 	Task_delete(&handle);
-	obj_counter--;
+	_dec_object();
 }
 
 
@@ -138,10 +132,6 @@ CThread &CThread::CurrentThread(){
 	return *(CThread*)Task_getEnv(Task_self());
 }
 
-
-size_t CThread::ThreadsCount(){
-	return obj_counter;
-}
 
 
 };

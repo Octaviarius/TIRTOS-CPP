@@ -16,10 +16,7 @@ namespace tirtos{
  */
 class CErrorBlock{
 private:
-
-
 	Error_Block handle;
-
 public:
 
 	CErrorBlock();

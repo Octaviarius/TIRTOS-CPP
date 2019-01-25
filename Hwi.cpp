@@ -8,10 +8,10 @@
 namespace tirtos{
 
 
+TIRTOS_OBJECT_CONSTRUCT(CHwi)
+
 
 CAtomic CHwi::atom;
-CErrorBlock CHwi::eblock;
-size_t CHwi::obj_counter = 0;
 
 
 Void CHwi::handler(UArg a){
@@ -26,15 +26,14 @@ CHwi::CHwi(){
 	handle = NULL;
 	intNum = -1;
 	ints_counter = 0;
-	eb = NULL;
-	obj_counter++;
+	_inc_object();
 }
 
 
-CHwi::CHwi(TFastFunctor functor, Int intNum, CErrorBlock *eb){
+CHwi::CHwi(TFastFunctor functor, Int intNum){
 	handle = NULL;
-	config(functor, intNum, eb);
-	obj_counter++;
+	config(functor, intNum);
+	_inc_object();
 }
 
 
@@ -42,13 +41,13 @@ CHwi::CHwi(TFastFunctor functor, Int intNum, CErrorBlock *eb){
 
 CHwi::~CHwi(){
 	Hwi_delete(&handle);
-	obj_counter--;
+	_dec_object();
 }
 
 
 
 
-void CHwi::config(TFastFunctor functor, Int intNum, CErrorBlock *eb){
+void CHwi::config(TFastFunctor functor, Int intNum){
 
 	if(handle != NULL)
 		 Hwi_delete(&handle);
@@ -59,10 +58,9 @@ void CHwi::config(TFastFunctor functor, Int intNum, CErrorBlock *eb){
 	params.arg = (UArg)this;
 
 	this->intNum = intNum;
-	this->eb = (eb == NULL) ? &eblock : eb;
 	ints_counter = 0;
 
-	handle = Hwi_create(intNum, &handler, &params, &this->eb->Handle());
+	handle = Hwi_create(intNum, &handler, &params, &errorBlock()->Handle());
 }
 
 

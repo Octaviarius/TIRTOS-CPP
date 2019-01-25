@@ -5,13 +5,13 @@
 
 #pragma once
 
-#include "os_types.h"
 #include <time.h>
 #include <algorithm>
 #include <xdc/runtime/Types.h>
 #include <ti/sysbios/family/c28/TimestampProvider.h>
 
 #include <DSP28x_Project.h>
+#include "common.h"
 
 
 

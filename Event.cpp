@@ -11,19 +11,19 @@
 namespace tirtos {
 
 
-CErrorBlock CEvent::eblock = CErrorBlock();
+TIRTOS_OBJECT_CONSTRUCT(CEvent)
 
 
 
-CEvent::CEvent(CErrorBlock *eb) {
-	if(eb == NULL)
-		eb = &eblock;
+CEvent::CEvent() {
 	Event_Params_init(&params);
-	handle = Event_create(&params, &eb->Handle());
+	handle = Event_create(&params, &errorBlock()->Handle());
+	_inc_object();
 }
 
 CEvent::~CEvent() {
 	Event_delete(&handle);
+	_dec_object();
 }
 
 

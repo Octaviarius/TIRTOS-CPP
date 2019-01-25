@@ -8,21 +8,17 @@
 namespace tirtos{
 
 
-
-CErrorBlock CSemaphore::eblock;
-size_t CSemaphore::obj_counter = 0;
+TIRTOS_OBJECT_CONSTRUCT(CSemaphore)
 
 
-CSemaphore::CSemaphore(Int n, CErrorBlock *eb){
-	this->eb = (eb == NULL) ? &eblock : eb;
-
-	handle = Semaphore_create(n, NULL, &this->eb->Handle());
-	obj_counter++;
+CSemaphore::CSemaphore(Int n){
+	handle = Semaphore_create(n, NULL, &errorBlock()->Handle());
+	_inc_object();
 }
 
 CSemaphore::~CSemaphore() {
 	Semaphore_delete(&handle);
-	obj_counter--;
+	_dec_object();
 }
 
 

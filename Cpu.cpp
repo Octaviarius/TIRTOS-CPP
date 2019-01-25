@@ -24,7 +24,7 @@ float CCpu::buses[NUM_BUSES][3];
 
 
 float CCpu::initInputClock(){
-	input_clock = input_clock;
+	input_clock = EXTERN_CLOCK;
 
 	buses[MainBus][0] = float(SysCtrlRegs.PLLCR.bit.DIV + 1) / float(1<<(3 - SysCtrlRegs.PLLSTS.bit.DIVSEL));
 	buses[MainBus][1] = input_clock * buses[MainBus][0];

@@ -11,8 +11,7 @@
 
 namespace tirtos{
 
-
-UInt CTimer::timers_count = 0;
+TIRTOS_OBJECT_CONSTRUCT(CTimer)
 
 
 Void CTimer::handler(UArg a){
@@ -32,10 +31,8 @@ CTimer::CTimer(TFastFunctor functor, UInt32 period, bool autostart){
 	if(period == 0)
 		period = STD_PERIOD;
 
-	handle = Clock_create(&handler, period, &params, NULL);
-	if(handle == NULL)
-		return;
-	timers_count++;
+	handle = Clock_create(&handler, period, &params, &errorBlock()->Handle());
+	_inc_object();
 }
 
 
@@ -47,7 +44,7 @@ CTimer::~CTimer(){
 	if(handle == NULL)
 		return;
 	Clock_delete(&handle);
-	timers_count--;
+	_dec_object();
 }
 
 
@@ -72,8 +69,5 @@ void CTimer::stop(){
 }
 
 
-UInt CTimer::TimersCount(){
-	return timers_count;
-}
 
 };

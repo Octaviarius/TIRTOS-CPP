@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <ti/sysbios/knl/Event.h>
 #include <ti/sysbios/BIOS.h>
-#include "ErrorBlock.hpp"
+#include "common.h"
 
 
 
@@ -12,13 +12,13 @@ namespace tirtos {
 
 
 class CEvent {
+    TIRTOS_OBJECT
 private:
 	Event_Handle handle;
 	Event_Params params;
-	static CErrorBlock eblock;
 public:
 
-	CEvent(CErrorBlock *eb = NULL);
+	CEvent();
 	~CEvent();
 
 	//! Post event to system

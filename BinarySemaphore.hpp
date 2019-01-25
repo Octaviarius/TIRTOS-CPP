@@ -9,6 +9,8 @@
 
 #include <ti/sysbios/knl/Semaphore.h>
 #include <ti/sysbios/BIOS.h>
+#include "common.h"
+
 
 
 namespace tirtos{
@@ -18,6 +20,7 @@ namespace tirtos{
  * \brief Обёртка над бинарным семафором.
  */
 class CBinarySemaphore {
+    TIRTOS_OBJECT
 private:
 	Semaphore_Handle handle;
 public:

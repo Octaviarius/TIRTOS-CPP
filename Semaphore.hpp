@@ -8,7 +8,7 @@
 
 #include <ti/sysbios/knl/Semaphore.h>
 #include <ti/sysbios/BIOS.h>
-#include "ErrorBlock.hpp"
+#include "common.h"
 
 
 
@@ -20,16 +20,14 @@ namespace tirtos{
  * @brief Семафор
  */
 class CSemaphore {
+    TIRTOS_OBJECT
 private:
 	//! Хэндл объекта
 	Semaphore_Handle handle;
-	CErrorBlock *eb;
-	static CErrorBlock eblock;
-	static size_t obj_counter;
 public:
 
 	//! Конструктор
-	CSemaphore(Int n = 0, CErrorBlock *eb = NULL);
+	CSemaphore(Int n = 0);
 	//! Деструктор
 	~CSemaphore();
 

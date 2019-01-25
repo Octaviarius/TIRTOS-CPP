@@ -5,42 +5,34 @@
 namespace tirtos {
 
 
-CErrorBlock CHeap::eblock;
-size_t CHeap::obj_counter = 0;
+
+TIRTOS_OBJECT_CONSTRUCT(CHeap);
 
 
 
-CHeap::CHeap(void *buff, size_t size, CErrorBlock *eb){
+CHeap::CHeap(void *buff, size_t size){
 	HeapMem_Params_init(&params);
 	params.buf = (typeof(params.buf))buff;
 	params.size = size;
 	params.minBlockAlign = 1;
 
-	this->eb = (eb == NULL) ? &eblock : eb;
-	handle = HeapMem_create(&params, &this->eb->Handle());
+	handle = HeapMem_create(&params, &errorBlock()->Handle());
 
-	obj_counter++;
+	_inc_object();
 }
 
 
 CHeap::~CHeap(){
-	obj_counter--;
+	_dec_object();
 }
 
 void *CHeap::allocate(size_t size, size_t align){
-	return Memory_alloc((xdc_runtime_IHeap_Handle)handle, size, align, &eb->Handle());
+	return Memory_alloc((xdc_runtime_IHeap_Handle)handle, size, align, &m_error_block.Handle());
 }
 
 
 void CHeap::deallocate(void *ptr, size_t size){
 	Memory_free((xdc_runtime_IHeap_Handle)handle, ptr, size);
-}
-
-
-
-
-size_t CHeap::HeapsCount(){
-	return obj_counter;
 }
 
 

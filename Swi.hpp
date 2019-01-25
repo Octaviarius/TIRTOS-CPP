@@ -6,8 +6,7 @@
 
 #include <ti/sysbios/knl/Swi.h>
 
-#include "ErrorBlock.hpp"
-#include "os_types.h"
+#include "common.h"
 
 
 namespace tirtos{
@@ -18,6 +17,7 @@ namespace tirtos{
  * @brief Обёртка над программными прерываниями
  */
 class CSwi{
+    TIRTOS_OBJECT
 private:
 
 	//! Ключ включения программных прерываний
@@ -26,13 +26,9 @@ private:
 	Swi_Handle handle;
 	//! Параметры
 	Swi_Params params;
-	//! Блок логгирования ошибок
-	CErrorBlock *eb;
 
 	TFastFunctor functor;
 
-	static CErrorBlock eblock;
-	static size_t obj_counter;
 	static Void handler(UArg, UArg);
 
 public:
@@ -40,13 +36,13 @@ public:
 	//! Конструктор
 	CSwi();
 	//! КОнструктор с инициализацией
-	CSwi(TFastFunctor functor, Int priority = -1, UInt trigger = 0, CErrorBlock *eb = NULL);
+	CSwi(TFastFunctor functor, Int priority = -1, UInt trigger = 0);
 
 	//! Деструктор
 	~CSwi();
 
 	//! Конфигурирование
-	void config(TFastFunctor functor, Int priority = -1, UInt trigger = 0, CErrorBlock *eb = NULL);
+	void config(TFastFunctor functor, Int priority = -1, UInt trigger = 0);
 	//! Принудительный запуск программного прерывания
 	void post();
 

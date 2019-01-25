@@ -2,7 +2,7 @@
 
 
 #include <ti/sysbios/knl/Clock.h>
-#include "os_types.h"
+#include "common.h"
 
 
 
@@ -11,6 +11,7 @@ namespace tirtos{
 
 
 class CTimer {
+    TIRTOS_OBJECT
 private:
 
 	Clock_Handle handle;
@@ -18,7 +19,6 @@ private:
 
 	TFastFunctor functor;
 
-	static UInt timers_count;
 	static Void handler(UArg);
 public:
 
@@ -36,7 +36,6 @@ public:
 	bool isOneshot();
 	void enableOneshot(bool value);
 
-	static UInt TimersCount();
 
 };
 

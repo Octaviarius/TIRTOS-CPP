@@ -9,8 +9,7 @@
 #include <ti/sysbios/family/c28/Hwi.h>
 
 #include "Atomic.h"
-#include "ErrorBlock.hpp"
-#include "os_types.h"
+#include "common.h"
 
 
 namespace tirtos{
@@ -20,6 +19,7 @@ namespace tirtos{
  * @brief Обёртка над аппратным прерываниями
  */
 class CHwi{
+    TIRTOS_OBJECT
 private:
 
 	//! Хэндл объёекта
@@ -29,29 +29,23 @@ private:
 	//! Номер подключаемого прерывания
 	Int intNum;
 	uint64_t 	ints_counter;
-	//! Блок лога ошибок
-	CErrorBlock *eb;
 
 	TFastFunctor functor;
 
-
 	//! Ключ для управления состоянием глобальных прерываний
 	static CAtomic atom;
-
-	static CErrorBlock eblock;
-	static size_t obj_counter;
 	static Void handler(UArg);
 
 public:
 
 	//! Конструктор с инициализацией
 	CHwi();
-	CHwi(TFastFunctor functor, Int intNum, CErrorBlock *eb = NULL);
+	CHwi(TFastFunctor functor, Int intNum);
 	//! Деструктор
 	~CHwi();
 
 	//! Конфигурирование
-	void config(TFastFunctor meth, Int intNum, CErrorBlock *eb = NULL);
+	void config(TFastFunctor meth, Int intNum);
 	//! Включение прерывания
 	void enable();
 	//! Выключение прерывания

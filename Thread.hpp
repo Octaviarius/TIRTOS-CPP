@@ -5,8 +5,7 @@
 #pragma once
 
 #include <ti/sysbios/knl/Task.h>
-#include "ErrorBlock.hpp"
-#include "os_types.h"
+#include "common.h"
 
 
 
@@ -21,6 +20,7 @@ namespace tirtos{
  * @brief Обёртка вокруг потока.
  */
 class CThread {
+    TIRTOS_OBJECT
 private:
 
 	struct TCallContext{
@@ -36,18 +36,15 @@ private:
 	Task_Params params;
 
 	TCallContext call_context;
-	CErrorBlock *eb;
 	void *sender;
 
 	static UInt key;
-	static CErrorBlock eblock;
-	static size_t obj_counter;
 	static Void handler(UArg, UArg);
 
 public:
 
 	//! Конструктор с инициализацией
-	CThread(TCallbackFunctor method, void *arg = NULL, int priority = -1, long stacksize = 0, CErrorBlock *eb = NULL);
+	CThread(TCallbackFunctor method, void *arg = NULL, int priority = -1, long stacksize = 0);
 	//! Деструктор
 	~CThread();
 
@@ -81,7 +78,6 @@ public:
 	static void yield();
 
 	static CThread &CurrentThread();
-	static size_t ThreadsCount();
 };
 
 

@@ -10,7 +10,7 @@
 namespace tirtos{
 
 
-
+TIRTOS_OBJECT_CONSTRUCT(CBinarySemaphore)
 
 
 /*!
@@ -24,6 +24,8 @@ CBinarySemaphore::CBinarySemaphore() {
    	Semaphore_Params_init(&param);
    	param.mode = Semaphore_Mode_BINARY;
 	handle = Semaphore_create(0, NULL, NULL);
+
+	_inc_object();
 }
 
 /*!
@@ -37,6 +39,8 @@ CBinarySemaphore::CBinarySemaphore(bool checked) {
    	Semaphore_Params_init(&param);
    	param.mode = Semaphore_Mode_BINARY;
 	handle = Semaphore_create(checked, NULL, NULL);
+
+	_inc_object();
 }
 
 /*!
@@ -44,6 +48,7 @@ CBinarySemaphore::CBinarySemaphore(bool checked) {
  */
 CBinarySemaphore::~CBinarySemaphore() {
 	Semaphore_delete(&handle);
+	_dec_object();
 }
 
 

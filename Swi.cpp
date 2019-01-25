@@ -10,16 +10,14 @@
 namespace tirtos{
 
 
-
+TIRTOS_OBJECT_CONSTRUCT(CSwi)
 
 UInt CSwi::key = 0;
-CErrorBlock CSwi::eblock;
-size_t CSwi::obj_counter = 0;
 
 
 
 Void CSwi::handler(UArg a0, UArg a1){
-	(*FORCE_CAST(TFastFunctor*, a0))();
+	(*FORCE_CAST(TFastFunctor*, a1))();
 }
 
 
@@ -29,20 +27,21 @@ Void CSwi::handler(UArg a0, UArg a1){
 CSwi::CSwi(){
 	handle = 0;
 	Swi_Params_init(&params);
-	eb = NULL;
+    handle = Swi_create(&handler, &params, &errorBlock()->Handle());
+	_inc_object();
 }
 
 
 
-CSwi::CSwi(TFastFunctor functor, Int priority, UInt trigger, CErrorBlock *eb){
+CSwi::CSwi(TFastFunctor functor, Int priority, UInt trigger){
 	Swi_Params_init(&params);
 	this->functor = functor;
 	params.priority = priority;
 	params.trigger = trigger;
-	params.arg0 = (UArg)&this->functor;
-	this->eb = (eb == NULL) ? &eblock : eb;
-	handle = Swi_create(&handler, &params, &this->eb->Handle());
-	obj_counter++;
+	params.arg0 = (UArg)this;
+    params.arg1 = (UArg)&this->functor;
+	handle = Swi_create(&handler, &params, &errorBlock()->Handle());
+	_inc_object();
 }
 
 
@@ -51,21 +50,20 @@ CSwi::CSwi(TFastFunctor functor, Int priority, UInt trigger, CErrorBlock *eb){
 
 
 CSwi::~CSwi(){
-	obj_counter--;
+	_dec_object();
 }
 
 
 
 
 
-void CSwi::config(TFastFunctor functor, Int priority, UInt trigger, CErrorBlock *eb){
-	Swi_Params_init(&params);
+void CSwi::config(TFastFunctor functor, Int priority, UInt trigger){
 	this->functor = functor;
 	params.priority = priority;
 	params.trigger = trigger;
-	params.arg0 = (UArg)&this->functor;
-	this->eb = (eb == NULL) ? &eblock : eb;
-	handle = Swi_create(&handler, &params, &this->eb->Handle());
+    params.arg0 = (UArg)this;
+    params.arg1 = (UArg)&this->functor;
+	Swi_setAttrs(handle, nullptr, &params);
 }
 
 
