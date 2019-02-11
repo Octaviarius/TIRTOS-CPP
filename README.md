@@ -7,11 +7,7 @@ Objects, such as Threads, Interrupts, Timers and many other are encapsulated in 
 For example, code which construct timer:
 
 C-styled:
-<<<<<<< HEAD
-```
-=======
 ```c
->>>>>>> 6e2882c7e40f7383e97c6c8d6e0a5346ba16cdfd
 	Void timer_handler(UArg a){
 		//do something
 	}
@@ -31,20 +27,15 @@ C-styled:
 	//in other place in your code you want change timer period
 	//...
 	Clock_setPeriod(handle, 2000);
-<<<<<<< HEAD
-	...
-=======
+
 	//...
->>>>>>> 6e2882c7e40f7383e97c6c8d6e0a5346ba16cdfd
 ```
 	
 	
 C++ styled:
-<<<<<<< HEAD
-```
-=======
+
 ```cpp
->>>>>>> 6e2882c7e40f7383e97c6c8d6e0a5346ba16cdfd
+
     void timer_handler_func(){
     	//do something
     }
@@ -63,17 +54,11 @@ C++ styled:
     TTimer tick_meth(TFastFunctor(&myclass, &TSomeClass::timer_handler_meth), 1000, true);
     
     //in other place in your code you want change timer period
-<<<<<<< HEAD
-    ...
-    tick_func.setPeriod(2000);
-    tick_meth.setPeriod(4000);
-    ...
-=======
+
     //...
     tick_func.setPeriod(2000);
     tick_meth.setPeriod(4000);
     //...
->>>>>>> 6e2882c7e40f7383e97c6c8d6e0a5346ba16cdfd
 ```
 	
 How you see this unified interface provided for fast and simple declaration and use tirtos objects for more power utility!
